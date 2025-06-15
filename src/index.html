@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Drug Calculator</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pediatric Drug Calculator</h1>
+        
+        <form id="calculatorForm">
+            <div class="form-group-group">
+                <div class="form-group">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" id="weight" name="weight" required min="0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" id="height" name="height" required min="0" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age (years):</label>
+                    <input type="number" id="age" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <div class="gender-toggle">
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male" class="toggle-label">M</label>
+                        <input type="radio" id="female" name="gender" value="female" required>
+                        <label for="female" class="toggle-label">F</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group-group">
+                <div class="form-group">
+                    <label for="drug">Drug:</label>
+                    <select id="drug" required>
+                        <option value="">Select drug</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="concentration">Concentration (mg/ml):</label>
+                    <input type="number" id="concentration" required min="0">
+                </div>
+            </div>
+            
+            <button type="submit">Calculate</button>
+        </form>
+        
+        <div id="results" class="results">
+            <h2>Results</h2>
+            <div id="resultContainer"></div>
+        </div>
+    </div>
+    <!-- Drug names data -->
+    <script src="/drugNames.js" type="module"></script>
+    
+    <!-- Drug dropdown population script -->
+    <script src="/drugDropdown.js" type="module"></script>
+    
+    <!-- Main application script -->
+    <script src="/app.ts" type="module"></script>
+</body>
+</html>
