@@ -1,6 +1,11 @@
 import React from 'react';
 
-const PatientInfoForm = ({ patientInfo, onChange }) => {
+interface PatientInfoFormProps {
+  patientInfo: { weight: string; age: string; gender: string };
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+}
+
+const PatientInfoForm: React.FC<PatientInfoFormProps> = ({ patientInfo, onChange }) => {
   return (
     <section className="section-box patient-info-section">
       <h2>Patient Information</h2>

@@ -1,8 +1,13 @@
 import React from 'react';
 
-const VialConcentrationInput = ({ concentration, onChange }) => {
+interface VialConcentrationInputProps {
+  concentration: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const VialConcentrationInput: React.FC<VialConcentrationInputProps> = ({ concentration, onChange }) => {
   return (
-    <div className="vial-concentration-input">
+    <div className="vial-concentration-input section-box">
       <h2>Vial Concentration</h2>
       <label>
         Concentration (mg/ml):
@@ -13,7 +18,7 @@ const VialConcentrationInput = ({ concentration, onChange }) => {
           onChange={onChange}
           min="0"
           step="any"
-          requirednpm
+          required
         />
       </label>
     </div>

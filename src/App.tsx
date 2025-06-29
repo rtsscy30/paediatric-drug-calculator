@@ -1,31 +1,31 @@
+import DRUGS, { Drug } from './data/drugs';
 import React, { useState } from 'react';
 import PatientInfoForm from './components/PatientInfoForm';
 import DrugSelector from './components/DrugSelector';
 import VialConcentrationInput from './components/VialConcentrationInput';
 import DosageCalculator from './components/DosageCalculator';
-import DRUGS from './data/drugs';
 
-function App() {
-  const [patientInfo, setPatientInfo] = useState({ weight: '', age: '', gender: '' });
-  const [selectedDrug, setSelectedDrug] = useState('');
-  const [concentration, setConcentration] = useState('');
-  const [dosage, setDosage] = useState(null);
-  const [volume, setVolume] = useState(null);
+const App: React.FC = () => {
+  const [patientInfo, setPatientInfo] = useState<{ weight: string; age: string; gender: string }>({ weight: '', age: '', gender: '' });
+  const [selectedDrug, setSelectedDrug] = useState<string>('');
+  const [concentration, setConcentration] = useState<string>('');
+  const [dosage, setDosage] = useState<number | null>(null);
+  const [volume, setVolume] = useState<string | null>(null);
 
-  const handlePatientChange = (e) => {
+  const handlePatientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setPatientInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDrugChange = (e) => {
+  const handleDrugChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDrug(e.target.value);
   };
 
-  const handleConcentrationChange = (e) => {
+  const handleConcentrationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConcentration(e.target.value);
   };
 
-  const calculate = (e) => {
+  const calculate = (e: React.FormEvent) => {
     e.preventDefault();
     const drug = DRUGS.find((d) => d.value === selectedDrug);
     if (!drug || !patientInfo.weight || !concentration) {
@@ -35,7 +35,11 @@ function App() {
     }
     const weight = parseFloat(patientInfo.weight);
     const conc = parseFloat(concentration);
-    const calculatedDosage = weight * drug.dosagePerKg;
+    // For now, use the lower bound if range is present
+    const dosagePerKg = typeof drug.dosagePerKg === 'string' && drug.dosagePerKg.includes('–')
+      ? parseFloat(drug.dosagePerKg.split('–')[0])
+      : parseFloat(drug.dosagePerKg);
+    const calculatedDosage = weight * dosagePerKg;
     const calculatedVolume = conc > 0 ? (calculatedDosage / conc).toFixed(2) : null;
     setDosage(calculatedDosage);
     setVolume(calculatedVolume);
@@ -53,6 +57,6 @@ function App() {
       <DosageCalculator dosage={dosage} volume={volume} />
     </div>
   );
-}
+};
 
 export default App;
