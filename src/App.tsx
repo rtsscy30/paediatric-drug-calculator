@@ -2,7 +2,6 @@ import DRUGS, { Drug } from './data/drugs';
 import React, { useState } from 'react';
 import PatientInfoForm from './components/PatientInfoForm';
 import DrugSelector from './components/DrugSelector';
-import VialConcentrationInput from './components/VialConcentrationInput';
 import DosageCalculator from './components/DosageCalculator';
 
 const App: React.FC = () => {
@@ -46,8 +45,13 @@ const App: React.FC = () => {
       <h1>Paediatric Calculator</h1>
       <form onSubmit={calculate}>
         <PatientInfoForm patientInfo={patientInfo} onChange={handlePatientChange} />
-        <DrugSelector drugs={DRUGS} selectedDrug={selectedDrug} onChange={setSelectedDrug} />
-        <VialConcentrationInput concentration={concentration} onChange={handleConcentrationChange} />
+        <DrugSelector
+          drugs={DRUGS}
+          selectedDrug={selectedDrug}
+          onChange={setSelectedDrug}
+          concentration={concentration}
+          onConcentrationChange={setConcentration}
+        />
         <button type="submit">Calculate</button>
       </form>
       <DosageCalculator dosage={dosage} volume={volume} />

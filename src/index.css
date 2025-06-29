@@ -109,23 +109,39 @@ button:hover {
   position: relative;
   cursor: pointer;
   user-select: none;
-  min-width: 180px;
-}
-.dropdown-selected {
-  background: #fff;
+  min-width: 0;
+  width: 100%;
+  max-width: 220px;
+  height: 36px;
+  box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 0.98rem;
-  min-height: 32px;
+  background: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  transition: border-color 0.2s;
 }
+.custom-dropdown:focus-within,
 .dropdown-selected.open {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
   border-color: #2a5d8f;
+  outline: none;
+}
+.dropdown-selected {
+  flex: 1 1 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 4px 10px;
+  font-size: 1rem;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 100%;
 }
 .dropdown-caret {
   margin-left: auto;
@@ -145,6 +161,7 @@ button:hover {
   position: absolute;
   left: 0;
   right: 0;
+  top: 100%;
   background: #fff;
   border: 1px solid #2a5d8f;
   border-top: none;
@@ -179,4 +196,44 @@ button:hover {
 .dropdown-option.disabled {
   color: #aaa;
   cursor: not-allowed;
+}
+.drug-info-row {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+}
+.drug-info-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  justify-content: flex-end;
+}
+.custom-dropdown, .vial-concentration-inline {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  min-height: 36px;
+  height: 36px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.vial-concentration-inline {
+  height: 32px;
+  padding: 4px 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 0;
+}
+@media (max-width: 600px) {
+  .patient-info-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .drug-info-row {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

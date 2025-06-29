@@ -5,9 +5,17 @@ interface DrugSelectorProps {
   drugs: Drug[];
   selectedDrug: string;
   onChange: (value: string) => void;
+  concentration: string;
+  onConcentrationChange: (value: string) => void;
 }
 
-const DrugSelector: React.FC<DrugSelectorProps> = ({ drugs, selectedDrug, onChange }) => {
+const DrugSelector: React.FC<DrugSelectorProps> = ({
+  drugs,
+  selectedDrug,
+  onChange,
+  concentration,
+  onConcentrationChange,
+}) => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,37 +45,55 @@ const DrugSelector: React.FC<DrugSelectorProps> = ({ drugs, selectedDrug, onChan
 
   return (
     <div className="drug-selector section-box" ref={containerRef}>
-      <h2>Drug Selection</h2>
-      <div className="custom-dropdown" onClick={() => setOpen(v => !v)} tabIndex={0}>
-        <div className={`dropdown-selected${open ? ' open' : ''}`}>
-          {selectedLabel}
-          <span className={`dropdown-caret${open ? ' open' : ''}`}></span>
-        </div>
-        {open && (
-          <div className="dropdown-menu">
-            <input
-              type="text"
-              placeholder="Search drug..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="drug-search-input"
-              autoFocus
-              onClick={e => e.stopPropagation()}
-            />
-            <div className="dropdown-options">
-              {filteredDrugs.length === 0 && <div className="dropdown-option disabled">No results</div>}
-              {filteredDrugs.map(drug => (
-                <div
-                  key={drug.value}
-                  className={`dropdown-option${selectedDrug === drug.value ? ' selected' : ''}`}
-                  onClick={e => { e.stopPropagation(); handleSelect(drug.value); }}
-                >
-                  {drug.label}
-                </div>
-              ))}
+      <h2>Drug Information</h2>
+      <div className="drug-info-row">
+        <div className="drug-info-col">
+          <label>Drug Name</label>
+          <div className="custom-dropdown" onClick={() => setOpen(v => !v)} tabIndex={0}>
+            <div className={`dropdown-selected${open ? ' open' : ''}`}>
+              {selectedLabel}
+              <span className={`dropdown-caret${open ? ' open' : ''}`}></span>
             </div>
+            {open && (
+              <div className="dropdown-menu">
+                <input
+                  type="text"
+                  placeholder="Search drug..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className="drug-search-input"
+                  autoFocus
+                  onClick={e => e.stopPropagation()}
+                />
+                <div className="dropdown-options">
+                  {filteredDrugs.length === 0 && <div className="dropdown-option disabled">No results</div>}
+                  {filteredDrugs.map(drug => (
+                    <div
+                      key={drug.value}
+                      className={`dropdown-option${selectedDrug === drug.value ? ' selected' : ''}`}
+                      onClick={e => { e.stopPropagation(); handleSelect(drug.value); }}
+                    >
+                      {drug.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
+        <div className="drug-info-col">
+          <label>Vial Concentration (mg/ml)</label>
+          <input
+            type="number"
+            name="concentration"
+            value={concentration}
+            onChange={e => onConcentrationChange(e.target.value)}
+            min="0"
+            step="any"
+            required
+            className="vial-concentration-inline"
+          />
+        </div>
       </div>
     </div>
   );
