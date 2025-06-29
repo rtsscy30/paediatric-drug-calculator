@@ -34,13 +34,28 @@ const PatientInfoForm: React.FC<PatientInfoFormProps> = ({ patientInfo, onChange
             required
           />
         </label>
-        <label>
+        <label className="gender-toggle-label">
           Gender:
-          <select name="gender" value={patientInfo.gender} onChange={onChange} required>
-            <option value="">Select</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          <div className="gender-toggle">
+            <input
+              type="radio"
+              id="gender-m"
+              name="gender"
+              value="male"
+              checked={patientInfo.gender === 'male'}
+              onChange={onChange}
+            />
+            <label htmlFor="gender-m" className={patientInfo.gender === 'male' ? 'active' : ''}>M</label>
+            <input
+              type="radio"
+              id="gender-f"
+              name="gender"
+              value="female"
+              checked={patientInfo.gender === 'female'}
+              onChange={onChange}
+            />
+            <label htmlFor="gender-f" className={patientInfo.gender === 'female' ? 'active' : ''}>F</label>
+          </div>
         </label>
       </div>
     </section>
