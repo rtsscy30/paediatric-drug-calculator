@@ -1,7 +1,7 @@
 {
   "name": "paediatric-drug-calculator",
   "version": "1.0.0",
-  "homepage": "https://rtsscy30.github.io/paedseasy",
+  "homepage": "https://rtsscy30.github.io/paediatric-drug-calculator",
   "main": "index.js",
   "scripts": {
     "start": "vite",
@@ -22,13 +22,14 @@
   },
   "description": "",
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.6.0",
+    "gh-pages": "^6.1.1",
     "typescript": "^5.8.3",
     "vite": "^7.0.0"
   }
