@@ -7,13 +7,23 @@ interface DosageCalculatorProps {
 
 const DosageCalculator: React.FC<DosageCalculatorProps> = ({ dosage, volume }) => {
   return (
-    <div className="dosage-calculator">
+    <div className="dosage-calculator" style={{ width: '100%', boxSizing: 'border-box' }} aria-live="polite">
       <h2>Results</h2>
-      <div>
-        <strong>Calculated Dosage:</strong> {dosage !== null ? `${dosage} mg` : '-'}
-      </div>
-      <div>
-        <strong>Volume to Extract:</strong> {volume !== null ? `${volume} ml` : '-'}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <label>Calculated Dosage</label>
+            <div style={{ background: '#fff', borderRadius: 4, padding: '8px 12px', border: '1px solid #dbeafe', width: '100%' }}>
+              {dosage}
+            </div>
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <label>Volume to Administer</label>
+            <div style={{ background: '#fff', borderRadius: 4, padding: '8px 12px', border: '1px solid #dbeafe', width: '100%' }}>
+              {volume}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

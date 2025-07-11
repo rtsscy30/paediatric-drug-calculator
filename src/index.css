@@ -65,8 +65,10 @@ button:hover {
 }
 .patient-info-row {
   display: flex;
-  gap: 24px;
-  align-items: flex-end;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+  width: 100%;
 }
 .patient-info-row label {
   flex: 1;
@@ -74,8 +76,8 @@ button:hover {
 }
 @media (max-width: 600px) {
   .patient-info-row {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row !important;
+    gap: 6px;
   }
 }
 .gender-toggle {
@@ -101,9 +103,15 @@ button:hover {
   color: #fff;
   border-color: #2a5d8f;
 }
-.gender-toggle-label {
-  flex: 1;
-  margin-bottom: 0;
+.gender-toggle label.gender-square {
+  width: 40px !important;
+  height: 35px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+  aspect-ratio: 1;
 }
 .custom-dropdown {
   position: relative;
@@ -229,8 +237,8 @@ button:hover {
 }
 @media (max-width: 600px) {
   .patient-info-row {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row !important;
+    gap: 6px;
   }
   .drug-info-row {
     flex-direction: column;
