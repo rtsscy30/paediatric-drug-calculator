@@ -207,14 +207,17 @@ button:hover {
 }
 .drug-info-row {
   display: flex;
-  gap: 18px;
-  align-items: stretch;
+  gap: 12px;
+  align-items: flex-end;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 .drug-info-col {
-  flex: 1 1 0;
+  flex: 1 1 120px;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-width: 120px;
+  max-width: none;
   justify-content: flex-end;
 }
 .custom-dropdown, .vial-concentration-inline {
@@ -236,12 +239,9 @@ button:hover {
   margin-top: 0;
 }
 @media (max-width: 600px) {
-  .patient-info-row {
+  .patient-info-row,
+  .drug-info-row {
     flex-direction: row !important;
     gap: 6px;
-  }
-  .drug-info-row {
-    flex-direction: column;
-    gap: 12px;
   }
 }
