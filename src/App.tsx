@@ -18,10 +18,6 @@ const App: React.FC = () => {
     setPatientInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleConcentrationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConcentration(e.target.value);
-  };
-
   const calculate = (e: React.FormEvent) => {
     e.preventDefault();
     const drug = DRUGS.find((d) => d.value === selectedDrug);
