@@ -1,11 +1,12 @@
 import React from 'react';
 
-interface DosageCalculatorProps {
-  dosage: number | null;
+interface ResultsDisplayProps {
+  dosage: number | string | null;
   volume: string | null;
+  unit: string | null;
 }
 
-const DosageCalculator: React.FC<DosageCalculatorProps> = ({ dosage, volume }) => {
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ dosage, volume, unit }) => {
   return (
     <div className="dosage-calculator" style={{ width: '100%', boxSizing: 'border-box' }} aria-live="polite">
       <h2>Results</h2>
@@ -14,7 +15,7 @@ const DosageCalculator: React.FC<DosageCalculatorProps> = ({ dosage, volume }) =
           <div style={{ flex: 1, minWidth: 0 }}>
             <label>Calculated Dosage</label>
             <div style={{ background: '#fff', borderRadius: 4, padding: '8px 12px', border: '1px solid #dbeafe', width: '100%' }}>
-              {dosage}
+              {dosage} {unit && <span>{unit}</span>}
             </div>
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -29,4 +30,4 @@ const DosageCalculator: React.FC<DosageCalculatorProps> = ({ dosage, volume }) =
   );
 };
 
-export default DosageCalculator;
+export default ResultsDisplay;

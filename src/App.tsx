@@ -1,15 +1,17 @@
-import DRUGS, { Drug } from './data/drugs';
+import DRUGS from './data/drugs';
 import React, { useState } from 'react';
 import PatientInfoForm from './components/PatientInfoForm';
 import DrugSelector from './components/DrugSelector';
-import DosageCalculator from './components/DosageCalculator';
+import ResultsDisplay from './components/ResultsDisplay';
+import { calculateDosage } from './utils/dosageCalculator';
 
 const App: React.FC = () => {
   const [patientInfo, setPatientInfo] = useState<{ weight: string; age: string; gender: string }>({ weight: '', age: '', gender: '' });
   const [selectedDrug, setSelectedDrug] = useState<string>('');
   const [concentration, setConcentration] = useState<string>('');
-  const [dosage, setDosage] = useState<number | null>(null);
+  const [dosage, setDosage] = useState<number | string | null>(null);
   const [volume, setVolume] = useState<string | null>(null);
+  const [unit, setUnit] = useState<string | null>(null);
 
   const handlePatientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -23,21 +25,10 @@ const App: React.FC = () => {
   const calculate = (e: React.FormEvent) => {
     e.preventDefault();
     const drug = DRUGS.find((d) => d.value === selectedDrug);
-    if (!drug || !patientInfo.weight || !concentration) {
-      setDosage(null);
-      setVolume(null);
-      return;
-    }
-    const weight = parseFloat(patientInfo.weight);
-    const conc = parseFloat(concentration);
-    // For now, use the lower bound if range is present
-    const dosagePerKg = typeof drug.dosagePerKg === 'string' && drug.dosagePerKg.includes('–')
-      ? parseFloat(drug.dosagePerKg.split('–')[0])
-      : parseFloat(drug.dosagePerKg);
-    const calculatedDosage = weight * dosagePerKg;
-    const calculatedVolume = conc > 0 ? (calculatedDosage / conc).toFixed(2) : null;
-    setDosage(calculatedDosage);
-    setVolume(calculatedVolume);
+    const result = calculateDosage(drug, patientInfo.weight, concentration);
+    setDosage(result.dosage);
+    setVolume(result.volume);
+    setUnit(result.unit);
   };
 
   return (
@@ -54,7 +45,7 @@ const App: React.FC = () => {
         />
         <button type="submit">Calculate</button>
       </form>
-      <DosageCalculator dosage={dosage} volume={volume} />
+      <ResultsDisplay dosage={dosage} volume={volume} unit={unit} />
     </div>
   );
 };
